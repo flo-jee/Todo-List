@@ -1,8 +1,23 @@
 {
-  "todos": [
+  "todo": [
     {
-      "id": "1197",
-      "content": "json-server를 사용하면 여기에 Todo 정보가 저장됩니다.",
+      "id": "4903",
+      "content": "코딩공부하기",
+      "time": 16
+    },
+    {
+      "id": "c201",
+      "content": "리액트 기초 연습하기",
+      "time": 0
+    },
+    {
+      "id": "8830",
+      "content": "리액트 심화 연습하기",
+      "time": 0
+    },
+    {
+      "id": "b7bd",
+      "content": "자바스크립트 복습하기",
       "time": 0
     }
   ]
