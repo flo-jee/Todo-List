@@ -12,6 +12,7 @@ function App() {
 
   return (
     <>
+      <Advice />
       <Clock />
       <StopWatch />
       <Timer />
@@ -21,6 +22,40 @@ function App() {
     </>
   );
 }
+
+const useFetch = (url) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    fetch(url)
+      .then((res) => res.json())
+      .then((res) => {
+        setData(res);
+        setIsLoading(false);
+      });
+  }, [url]);
+  return [isLoading, data];
+};
+
+// 랜덤명언 가져오기
+const Advice = () => {
+  const [isLoading, data] = useFetch(
+    "https://korean-advice-open-api.vercel.app/api/advice",
+  );
+
+  return (
+    <>
+      {!isLoading && (
+        <>
+          <div>{data.message}</div>
+          <div>-{data.author}-</div>
+        </>
+      )}
+    </>
+  );
+};
+
 // 현재 시각 구현
 const Clock = () => {
   const [time, setTime] = useState(new Date());
@@ -30,7 +65,12 @@ const Clock = () => {
     }, 1000);
   }, []);
 
-  return <div>{time.toLocaleTimeString()}</div>;
+  return (
+    <>
+      <div>현재시간</div>
+      <div>{time.toLocaleTimeString()}</div>
+    </>
+  );
 };
 
 // 스톱워치 초기화
@@ -58,6 +98,7 @@ const StopWatch = () => {
 
   return (
     <div>
+      <div>스톱워치</div>
       {formatTime(time)}
       <button onClick={() => setIsOn((prev) => !prev)}>
         {isOn ? "끄기" : "켜기"}
@@ -96,6 +137,7 @@ const Timer = () => {
   return (
     <div>
       <div>
+        <div>타이머</div>
         {time ? formatTime(time) : formatTime(startTime)}
         <button
           onClick={() => {
@@ -116,7 +158,6 @@ const Timer = () => {
           리셋
         </button>
       </div>
-
       <input
         type="range"
         value={startTime}
